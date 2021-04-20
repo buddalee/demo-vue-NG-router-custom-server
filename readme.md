@@ -17,7 +17,7 @@ npm run start
 1. 提起 browser history 與 hash history 與他對 server 特色
 2. 提起 angular 預設路由規則與 base html
   - https://github.com/buddalee/miaoli_dist/commit/da13c389f0b227e50a1a7842b066485588b7ef03
-3. 試著 disable
+3. 試著 disable 去體驗，主要是要講 rewrite rule
 ```
 app.use((req, res, next) => {
   if (!req.originalUrl.includes(buildLocation)) {
@@ -27,3 +27,4 @@ app.use((req, res, next) => {
   }
 });
 ```
+4. 可能之後再用 pure html5 history clone 出一個 simple SPA router
