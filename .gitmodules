@@ -1,0 +1,3 @@
+[submodule "ng"]
+	path = ng
+	url = https://github.com/buddalee/miaoli_dist.git
