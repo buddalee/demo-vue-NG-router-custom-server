@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .router-link-exact-active {
+            background: #000;
+            color: #fff;
+        }
+
+        /* .router-link-active{
+            background: #000;
+            color: #fff;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- <div v-if = "show === 1">Page1</div>
+        <div v-if = "show === 2">Page2</div> -->
+        <p>
+            <router-link to="/">Index</router-link>
+            <router-link to="/page1">page1</router-link>
+            <router-link to="/page2">page2</router-link>
+            <router-link to="/user/123">user</router-link>
+            <router-link to="/user3/123">user3</router-link>
+            <router-link to="/user3/profiled/123">user3</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'
+        integrity='sha512-o9SZrtqlGkpa7EF+dDrNjEdRFFYhymlrBzDKpolHNolxsyx0IcXAbEm9i1e8QpoiMgEdKZVtY8XiK1t8i6jVDA=='
+        crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.4.3/vue-router.js'
+        integrity='sha512-3y+1622sE9JcYGIob4bKvJI6qMHpzrsloehokHVZBk1Lx7lr7H5p6IOqIkRQzB0Ids5l11W3n+vK50xArypH5g=='
+        crossorigin='anonymous'></script>
+    <script>
+
+        // router 操作 控制
+
+        // route 讀取 紀錄
+        const Index = {
+            template: `<div>Index</div>`,
+        }
+        const Page1 = {
+            template: `<div>Page1</div>`,
+        }
+        const Page2 = {
+            template: `<div>Page2</div>`,
+        }
+        const User = {
+            template: `
+            <div>
+                <p>一定要帶參數才會有畫面</p>
+                User {{$route.params.id}}
+            </div>`,
+            mounted(){
+                setTimeout(() => {
+                    window.alert('API')
+                }, 500);
+            }
+        }
+        const User2 = {
+            template: `
+            <div>
+                <p>不一定要帶參數也會有畫面</p>
+                User2 {{$route.params.id}}
+            </div>`,
+        }
+        const User3 = {
+            template: `
+            <div>
+                <p>一定要帶參數才會有畫面</p>
+                User3 {{$route.params.id}}
+                {{num}}<button @click="num++">+</button>
+            </div>`,
+            data(){
+                return{
+                    num:0,
+                }
+            },
+        }
+        const Error = {
+            template: `<div> 404 </div>`,
+        }
+        const router = new VueRouter({
+            mode: 'history',
+            // base: __dirname,
+            routes: [
+                {
+                    path: '/',
+                    component: Index,
+                },
+                {
+                    path: '/page1',
+                    component: Page1,
+                },
+                {
+                    path: '/page2',
+                    component: Page2,
+                },
+                // {
+                //     path: '/user/:id',
+                //     component: User,
+                // },
+                // {
+                //     path: '/user2/:id?',
+                //     component: User2,
+                // },
+                // {
+                //     path: '/user3/(profiled/)?:id(\\d+)',
+                //     component: User3,
+                // },
+                {
+                    path: '/404',
+                    component: Error,
+                },
+                {
+                    path: '*',
+                    redirect: Index,
+                }
+            ],
+        })
+
+        new Vue({
+            el: '#app',
+            router,
+            data() {
+                return {
+                    show: 1,
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
